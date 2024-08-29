@@ -67,7 +67,7 @@ export default function AboutFavy() {
             </h1>
         </div>
         <div className='p-4 shadow-md rounded mx-auto w-auto overflow-hidden bg-white'>
-            <Slider slides={slides}/>
+            <Slider slides={slides} seconds={7000}/>
         </div>
     </div>
   )

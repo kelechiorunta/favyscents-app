@@ -27,6 +27,15 @@
         },
       });
 
+    //   config.module.rules.push({
+    //     test: /\.ico$/i,
+    //     loader: 'file-loader',  // or 'file-loader'
+    //     options: {
+    //       limit: 8192,  // Adjust the limit based on your needs
+    //       name: 'icons/[name].[hash].[ext]',
+    //     },
+    //   });
+
       return config;
     },
   };

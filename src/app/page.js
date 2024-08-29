@@ -1,6 +1,7 @@
 import AboutFavy from "@/components/AboutFavy";
 import MainHeader from "@/components/MainHeader";
 import OurProducts from "@/components/OurProducts";
+import Reviews from "@/components/Reviews";
 import LandingPage from "@components/LandingPage";
 import Image from "next/image";
 
@@ -11,6 +12,7 @@ export default function Home() {
       <LandingPage/>
       <OurProducts/>
       <AboutFavy/>
+      <Reviews/>
     </main>
   );
 }

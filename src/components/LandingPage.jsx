@@ -75,7 +75,7 @@ export default function LandingPage() {
             </h1>
         </div>
         <div className='p-4 container shadow-md rounded-full mx-auto w-auto overflow-hidden bg-white'>
-            <Slider slides={slides}/>
+            <Slider slides={slides} seconds={7000}/>
         </div>
     </div>
   )
