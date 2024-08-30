@@ -4,6 +4,7 @@ import React from 'react'
 import Slider from '../app/Slider'
 import Typer from './Typer'
 import { Poppins } from 'next/font/google'
+import { motion, stagger } from 'framer-motion'
 
 const slides = [{
     id:0, heroPic: <img
@@ -51,32 +52,76 @@ const texts = ["Our FavyScents", "Our Future"]
 
 const poppins = Poppins({subsets:['latin'], style:'italic', weight:'400'})
 
+const containerVariants = {
+    hidden: { opacity: 0, y: -100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        ease: 'backInOut',
+        staggerChildren: 0.3, // Staggering the children with 0.3 seconds delay
+        duration: 1,
+      },
+    },
+  };
+  
+  const childVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.4, stagger:0.3 }, // Customize each child's animation
+    },
+  };
+
+
+
 export default function LandingPage() {
   return (
-    <div className='max-w-full p-8 grid grid-cols-2 mt-20 shadow-md rounded container 
+    <motion.div 
+       initial="hidden"
+       whileInView="visible"
+       variants={containerVariants}
+       viewport={{ once: true }}
+    className='max-w-full p-8 grid grid-cols-2 mt-[88px] shadow-md rounded container 
     bg-gradient-to-tr from-green-600 via-slate-700 to-black
     max-lg:grid-cols-1'>
-        <div className='shadow-md rounded py-4 pl-16 container'>
-            <h1 className=' flex flex-col gap-2 items-start'>
-                <p className='text-7xl'>Welcome to </p>
-                <span className='text-9xl text-white '>FavyScents</span>
+        <motion.div 
+       transition={{stagger:0.5, duration:1}}
+       variants={childVariants}
+        className='shadow-md rounded py-4 pl-16 container'>
+            <motion.h1 
+                transition={{stagger:0.5, duration:1}}
+                variants={childVariants}
+                className=' flex flex-col gap-2 items-start'>
+                <motion.p 
+                transition={{stagger:0.5, duration:1}}
+                variants={childVariants}
+                className='text-7xl'>Welcome to </motion.p>
+                <motion.span
+                transition={{stagger:0.5, duration:1}}
+                variants={childVariants}
+                className='text-9xl text-white '>FavyScents</motion.span>
                 <Typer texts={texts} time={3000} speed={90}/>
-                <p className={`${poppins.className} py-4 text-white`}>
+                <motion.p
+                transition={{stagger:0.5, duration:1}}
+                variants={childVariants} 
+                className={`${poppins.className} py-4 text-white`}>
                     Ncididunt ut labore et dolore magna aliqua. Ut enim 
                     ad minim veniam, quis nostrud exercitation ullamco 
                     laboris nisi ut aliquip ex ea commodo
-                </p>
+                </motion.p>
                 <button 
                 className={`${poppins.className} p-4 w-max
                  text-white rounded-md shadow-md bg-gradient-to-l
                   from-slate-900 via-slate-700 to-slate-900`}>
                     BUY NOW
                 </button>
-            </h1>
-        </div>
+            </motion.h1>
+        </motion.div>
         <div className='p-4 container shadow-md rounded-full mx-auto w-auto overflow-hidden bg-white'>
             <Slider slides={slides} seconds={7000}/>
         </div>
-    </div>
+    </motion.div>
   )
 }

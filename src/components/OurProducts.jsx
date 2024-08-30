@@ -1,9 +1,11 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext, memo } from 'react'
 import { Poppins } from 'next/font/google'
 import Image from 'next/image'
 import { motion, stagger } from 'framer-motion'
 import Link from 'next/link'
+import useProductScroll from './useProductScroll'
+import { slideContext } from './AppContext'
 
 const parentVariant = {
     hidden: {opacity:0, x:0},
@@ -12,10 +14,9 @@ const parentVariant = {
 } 
 
 const childVariant = {
-    
-        visible: { opacity: 1, x:0, transition:{stagger:0.5}},
-        hidden: { opacity: 0, x:20},
-      
+        visible: { opacity: 1, x:0, 
+        transition:{stagger:0.5}},
+        hidden: { opacity: 0, x:20},    
 }
 
 const poppins = Poppins({subsets:['latin'], style:'normal', weight:'400'})
@@ -33,17 +34,19 @@ const products = [
     pic:<Image className='rounded-md shadow-md pl-6 py-6 pr-4
     bg-white' src={'/images/image3.png'} alt='perfume1'
     width={244} height={244} />},
-    {id:3, name:"HORSE", price:"€2,200", 
+    {id:3, name:"DAYLAAN", price:"€2,200", 
     pic:<Image className='rounded-md shadow-md pl-6 py-6 pr-4
     bg-white' src={'/images/image4.png'} alt='perfume1'
     width={244} height={244} />},
-    {id:4, name:"MUCO", price:"€2,500", 
+    {id:4, name:"SAHEEB", price:"€2,500", 
     pic:<Image className='rounded-md shadow-md pl-6 py-6 pr-4
     bg-white' src={'/images/image5.png'} alt='perfume1'
     width={244} height={244} />}
 ]
 
-export default function OurProducts() {
+function OurProducts() {
+    const { productNo } = useContext(slideContext)
+    const {containerRef, parentRef, titleRef, descriptionRef, photosblog} = useProductScroll();
     const slicedproducts = products && products.slice(0,3)
     const [displayedProducts, setDisplayedProducts] = useState(slicedproducts)
     const [searchedResults, setSearchedResults] = useState("")
@@ -56,32 +59,47 @@ export default function OurProducts() {
     }
 
     useEffect(()=>{
-        if (displayedProducts && displayedProducts.length>0){
-            handlePaginate(displayedProducts, 0)
+        if (displayedProducts && displayedProducts.length>0 && productNo){
+            handlePaginate(products, Math.floor(productNo/3))
         }
-    }, [])
+    }, [productNo, products])
 
   return (
-    <div className='max-w-full container flex flex-col items-center gap-8 px-8 mt-[200px] py-16
+    <div 
+    className='container max-w-[90%] min-w-[90%] flex flex-col mx-auto items-center justify-center'>
+    {/* // // ref={containerRef}> */}
+    <motion.div
+    //    ref={parentRef}
+    //    initial="hidden"
+    //    whileInView="visible"
+    //    variants={parentVariant}
+    //    viewport={{ once: true }}
+    className='max-w-full mx-auto container flex flex-col items-center gap-8 px-8 mt-[200px] py-16
     bg-gradient-conic from-slate-600 via-slate-300 to-slate-600'>
-        <h1 className={`text-[40px] ${poppins.className} mt-4 text-center`}>OUR PRODUCTS</h1>
-        <p className={`${poppins.className} -mt-4 mb-4 px-4 text-center uppercase text-2xl`}>
+        <h1 
+        // ref={titleRef}
+        className={`text-[40px] ${poppins.className} mt-4 text-center`}>OUR PRODUCTS</h1>
+        <p 
+        // ref={descriptionRef}
+        className={`${poppins.className} -mt-4 mb-4 px-4 text-center uppercase text-2xl`}>
             Our Best Sellers Collection at 20% discount. 
         </p>
-        <p className={`${poppins.className} -mt-4 mb-4 px-4 text-center text-2xl`}>
+        <p  
+        // ref={descriptionRef}
+        className={`${poppins.className} -mt-4 mb-4 px-4 text-center text-2xl`}>
             {searchedResults}
         </p>
         <motion.div 
         initial='hidden'
         animate='visible'
         variants={parentVariant}
-        className='container w-[80%] flex flex-wrap gap-2 justify-evenly'>
-            {displayedProducts.map((items, index) => {
+        className={`${photosblog} container w-[80%] flex flex-wrap gap-2 justify-evenly`}>
+            {displayedProducts && displayedProducts.map((items, index) => {
                 return (
                     <motion.div 
                     transition={{stagger:0.5, duration:1}}
                     variants={childVariant}
-                    className='w-auto rounded-md border-white shadow-md flex flex-col '>
+                    className={`${items.id===productNo && 'animate-bounce'} w-auto rounded-md border-white shadow-md flex flex-col `}>
                        <Link href={'#'}>{items.pic}</Link>
                       {/* <Image className='rounded-md shadow-md pl-6 py-6 pr-4 bg-white' src={'/images/image1.png'} alt='perfume1' width={244} height={244} /> */}
                         <div className={`${poppins.className} flex items-center justify-center px-4 uppercase 
@@ -116,6 +134,9 @@ export default function OurProducts() {
           )
         })}
            </div>
-    </div>
+    </motion.div>
+ </div>
   )
 }
+
+export default memo(OurProducts)

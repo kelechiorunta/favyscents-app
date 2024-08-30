@@ -1,7 +1,9 @@
-import React from 'react'
+'use client'
+import React, { useContext } from 'react'
 import Slider from '@/app/Slider'
 import { Poppins } from 'next/font/google'
 import { FaReact } from 'react-icons/fa'
+import { slideContext } from './AppContext'
 
 const poppins = Poppins({subsets:['latin'], style:'italic', weight:'400'})
 
@@ -60,14 +62,29 @@ const slides = [{
     ]
 
 export default function Reviews() {
+
+    const {slideNo, setSlideNo} = useContext(slideContext)
   return (
-    <div className='container p-8 max-w-full flex flex-col mt-[200px] bg-gradient-to-b from-slate-200 via-zinc-500 to-black'>
+    <div className='container pt-8 pb-16 max-w-full flex flex-col mt-[200px] bg-gradient-to-b from-slate-200 via-zinc-500 to-black'>
         <h1 className={`${poppins.className} mx-auto py-4 text-center container text-[40px] uppercase`}>
             WHAT SAYS CUSTOMERS
         </h1>
         <div className='mx-auto w-full'>
             <Slider slides={slides} seconds={10000}/>
         </div>
+        <div className='flex container mx-auto w-auto -mt-4'>
+        {Array.from({length:Math.ceil(slides.length)}, (v, item) => item + 1).map((i, index) => {
+              return(
+                <button
+                key={index}
+                    onClick={()=>{ setSlideNo(index)}}
+                    className={`${slideNo===index? 'selected' : ' bg-white'} ${poppins.className} mx-2
+                    flex items-center justify-center text-[20px] p-2 w-[20px] h-[20px] rounded-full`}>
+                    {/* {index + 1} */}
+                </button>
+          )
+        })}
+    </div>
     </div>
   )
 }

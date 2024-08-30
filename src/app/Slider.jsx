@@ -1,11 +1,13 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { slideContext } from '@/components/AppContext';
 // import { FaArrowLeft, FaArrowRight, FaArrowCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa'
 // import Image from 'next/image';
 
 export default function Slider({slides, seconds}) {
 
+  const { setSlideNo } = useContext(slideContext)
   const [slide, setSlide] = useState(0);
   const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
   const [prevSlide, setPrevSlide] = useState(0); // Track the previous slide index
@@ -14,23 +16,46 @@ export default function Slider({slides, seconds}) {
     setDirection(1);
     setPrevSlide(slide);
     setSlide((n) => (n + 1) % slides.length);
+    seconds===10000 && setSlideNo((n) => (n + 1) % slides.length);
   };
 
   const moveSlideBackward = () => {
     setDirection(-1);
     setPrevSlide(slide);
     setSlide((n) => (n - 1 + slides.length) % slides.length);
-  };
+    seconds===10000 && setSlideNo((n) => (n - 1 + slides.length) % slides.length);
+    
+  }; 
+  
+  const [isRunning, setIsRunning] = useState(true);
+
+  const handleVisibilityChange = useCallback(() => {
+    if (document.hidden) {
+      setIsRunning(false);  // Pause when the page is not visible
+    } else {
+      setIsRunning(true);   // Resume when the page is visible
+    }
+  }, []);
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [handleVisibilityChange]);
+
+  useEffect(() => {
+    if (isRunning) {
+    const timerId = setInterval(() => {
       direction === 1 ? moveSlideForward() : moveSlideBackward();
     }, seconds); // Slide changes every 3 seconds
 
     return () => {
-      clearTimeout(timerId);
-    };
-  }, [slide, direction]);
+      clearInterval(timerId);
+    }
+  };
+  }, [isRunning, slide, direction]);
 
 
   return (

@@ -7,8 +7,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex max-w-full min-h-screen flex-col items-center justify-between bg-black">
-      <div className="container z-20 max-w-full fixed"><MainHeader/></div>
+    <main className="flex container max-w-full min-h-screen flex-col items-center justify-between bg-black overflow-hidden">
+      {/* <div className="container z-20 max-w-full fixed"><MainHeader/></div> */}
       <LandingPage/>
       <OurProducts/>
       <AboutFavy/>
