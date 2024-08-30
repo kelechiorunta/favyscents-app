@@ -59,10 +59,10 @@ function OurProducts() {
     }
 
     useEffect(()=>{
-        if (displayedProducts && displayedProducts.length>0 && productNo){
+        if (displayedProducts && displayedProducts.length>0){
             handlePaginate(products, Math.floor(productNo/3))
         }
-    }, [productNo, products])
+    }, [productNo,  products])
 
   return (
     <div 
@@ -126,7 +126,8 @@ function OurProducts() {
            {Array.from({length:Math.ceil(products.length/3)}, (v, item) => item + 1).map((i, index) => {
               return(
                 <button
-                    onClick={()=>{handlePaginate(products, index); setSelectedId(index)}}
+                    onClick={()=>{setDisplayedProducts(products && products.slice(index*3, (index+1)*3)); 
+                    setSelectedId(index); setSearchedResults(`Showing ${(index*3)+1} - ${((index+1)*3 > products.length)? products.length : (index+1)*3} of ${products.length} items`)}}
                     className={`${selectedId==index && 'selected'} ${poppins.className} 
                     flex items-center justify-center text-[20px]  p-2 w-[50px] h-[50px] rounded-full`}>
                     {index + 1}

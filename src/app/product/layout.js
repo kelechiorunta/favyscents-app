@@ -10,7 +10,7 @@ import ProductTemplate from './template'
 const poppins = Poppins({subsets:['latin'], style:'normal', weight:'400'})
 
 export default function ProductLayout({children}) {
-    const pathname = usePathname()
+     const pathname = usePathname()
   return (
     <div className='container mx-auto min-w-[90%] max-w-[100%] flex bg-white overflow-hidden'>
         <div className={`${poppins.className}

@@ -3,19 +3,32 @@ import React, {useState, useContext} from 'react'
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { FaShopify, FaSpinner } from 'react-icons/fa'
+import { FaHome, FaShopify, FaSpinner, FaCartPlus } from 'react-icons/fa'
 import { slideContext } from './AppContext'
+
+
 
 export default function ProductTabLink({path, children}) {
   // const segment = useSelectedLayoutSegment()
   const pathname = usePathname()
   const isActive = (pathname==path)
   const { productNo, setProductNo } = useContext(slideContext)
+
+  const activeIcon = (pathname, isActive) => {
+    if ((pathname=='/product') && isActive ){
+      return <FaHome fill={'white'} size={20}/>
+    } else if (pathname==='/product/list' && isActive){
+      return <FaCartPlus fill={'white'} size={20}/>
+    }
+    // return <FaHome fill={isActive && 'white'} size={20}/> || <FaCartPlus fill={!isActive && 'black'} size={20}/>
+  }
+
   return (
     <Link 
       className={`${isActive && 'text-white font-extrabold animate-pulse'}
       flex items-start relative justify-start gap-x-2 w-full uppercase p-2 shadow-2xl text-center border-1 border-black text-black bg-gradient-to-b from-gray-700 via-gray-400 to-gray-700 rounded`}
       href={`${path}`}>
+      {/* <div className='flex gap-x-2'>{activeIcon(pathname, isActive)} {children}</div> */}
       {children}
       {pathname==='/product/list' && isActive &&
       <ul className='absolute z-10 top-20 flex flex-col py-8 px-4 rounded-md
