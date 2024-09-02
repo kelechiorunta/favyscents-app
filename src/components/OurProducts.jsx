@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useContext, memo, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useContext, memo, useRef, useCallback, useMemo } from 'react'
 import { Poppins } from 'next/font/google'
 import Image from 'next/image'
 import { motion, stagger } from 'framer-motion'
@@ -8,7 +8,7 @@ import useProductScroll from './useProductScroll'
 import { slideContext } from './AppContext'
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { usePathname } from 'next/navigation'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import { addtoCart } from '@/utils/redux/SliceReducer'
 import { updateCart } from '@/utils/redux/thunk'
 
@@ -56,6 +56,9 @@ const products = [
 ]
 
 function OurProducts() {
+
+    const cartItems = useSelector((state) => state.cartReducer.cart, shallowEqual);
+    const dispatch = useDispatch()
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const segment = useSelectedLayoutSegment();
     const pathname = usePathname();
@@ -67,6 +70,7 @@ function OurProducts() {
     const [selectedId, setSelectedId] = useState(0);
 
     const { productNo, setProductNo } = productContext
+    
   
     // Log only once on initial render
     useEffect(() => {
@@ -92,6 +96,19 @@ function OurProducts() {
     useEffect(()=>{
         handleProductRef(productNo)
     },[productNo])
+
+    const handleCart = useCallback((items) => {
+        const { id, name, price, picture } = items
+
+        // dispatch(updateCart({id, name, price, picture}))
+        dispatch(addtoCart({id, name, price, picture}))
+        // console.log(cartItems)
+
+    }, [cartItems])
+
+    const memoizedValues = useMemo(() => 
+        cartItems, 
+      [cartItems]);
   
     const slidetexts = `Your  Choicest  Brands`;
   
@@ -101,7 +118,6 @@ function OurProducts() {
           className='max-w-full mx-auto container flex flex-col items-center gap-8 px-8 mt-[200px] py-16
           bg-gradient-conic from-slate-600 via-slate-300 to-slate-600'>
           <h1 className={`text-[40px] ${poppins.className} mt-4 text-center`}>{!isListSegment ? 'OUR PRODUCTS' : 'COLLECTIONS'}</h1>
-          
           {isListSegment && (
             <motion.h1
               initial="hidden"
@@ -125,7 +141,7 @@ function OurProducts() {
               ))}
             </motion.h1>
           )}
-  
+            {/* {console.log(memoizedValues)} */}
           <p className={`${poppins.className} -mt-4 mb-4 px-4 text-center uppercase text-2xl`}>
             {!isListSegment && 'Our Best Sellers Collection at 20% discount.'}
           </p>
@@ -154,6 +170,7 @@ function OurProducts() {
                       {items.name}
                     </p>
                     <button
+                    onClick={()=>handleCart(items)}
                       className={`${poppins.className} border-white border-1 w-max text-center px-4 py-3 
                       rounded bg-gradient-to-r mx-auto bg-transparent text-white`}>
                       {isListSegment ? 'Buy Now' : 'Add To Cart'}
@@ -180,6 +197,8 @@ function OurProducts() {
             })}
           </div>
         </motion.div>
+        
+        
       </div>
     )
   }

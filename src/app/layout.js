@@ -9,6 +9,7 @@ import "./globals.css";
 import Template from "./template";
 import MainHeader from "@/components/MainHeader";
 import MainFooter from "@/components/MainFooter";
+import ProviderContext from "@/components/ProviderContext";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight:'400' });
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${great_vibes.className} `}>
+        <ProviderContext>
         <AppContext>
          
           <div className="container z-20 max-w-full fixed"><MainHeader/></div>
@@ -36,6 +38,7 @@ export default function RootLayout({ children }) {
           <div><MainFooter/></div>
           {/* </Provider> */}
         </AppContext>
+        </ProviderContext>
       </body>
     </html>
   );
