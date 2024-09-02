@@ -1,0 +1,34 @@
+.carousel {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    perspective-origin: top;
+    perspective: 1000px; /* Creates the 3D perspective */
+    /* transform: rotateY(45deg) translateZ(-120px); */
+    margin: 0 auto;
+  }
+  
+  .slidesContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d; /* Ensure 3D rendering */
+    transform-origin: center;
+    transition: transform 1s ease-in-out;
+  }
+  
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* backface-visibility: hidden; Ensure slides don't disappear when rotated */
+    background-color: lightblue;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 1s ease-in-out;
+  }
+  

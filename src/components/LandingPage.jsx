@@ -85,7 +85,7 @@ export default function LandingPage() {
        viewport={{ once: true }}
     className='max-w-full p-8 grid grid-cols-2 mt-[88px] shadow-md rounded container 
     bg-gradient-to-tr from-green-600 via-slate-700 to-black
-    max-lg:grid-cols-1'>
+    max-lg:grid-cols-1 max-sm:p-4 max-[400px]:px-2'>
         <motion.div 
        transition={{stagger:0.5, duration:1}}
        variants={childVariants}
@@ -101,7 +101,7 @@ export default function LandingPage() {
                 <motion.span
                 transition={{stagger:0.5, duration:1}}
                 variants={childVariants}
-                className='text-9xl text-white '>FavyScents</motion.span>
+                className='text-9xl text-white max-sm:text-8xl max-[400px]:text-6xl'>FavyScents</motion.span>
                 <Typer texts={texts} time={3000} speed={90}/>
                 <motion.p
                 transition={{stagger:0.5, duration:1}}

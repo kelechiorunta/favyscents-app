@@ -164,22 +164,22 @@ function OurProducts() {
                     ref={(el) => (productsRef.current[index] = el)}
                     transition={{stagger:0.5, duration:1}}
                     variants={childVariant}
-                    className={`${items.id===productNo && 'animate-bounce'} w-auto rounded-md border-white shadow-md flex flex-col `}>
+                    className={`${items.id===productNo && 'animate-bounce'} relative w-auto rounded-md border-white shadow-md flex flex-col `}>
                        <Link onClick={()=>{items.id===productNo && setProductNo(null)}} href={`/product/list/${items.id}`}>{items.pic}</Link>
                       {/* <Image className='rounded-md shadow-md pl-6 py-6 pr-4 bg-white' src={'/images/image1.png'} alt='perfume1' width={244} height={244} /> */}
                         <div className={`${poppins.className} flex items-center justify-center px-4 uppercase 
                             bg-gradient-to-l text-white rounded-md
                             from-slate-900 via-zinc-700 to-slate-900`}>
                             <p className={`${poppins.className} p-auto uppercase 
-                            bg-gradient-to-l text-white p-4
-                            from-slate-900 via-zinc-900 to-slate-900`}>
+                            bg-gradient-to-r text-white px-3 py-2 absolute top-0 rounded
+                            from-slate-900 via-black to-slate-900`}>
                                 {items.name}
                             </p>
                             <button className={`${poppins.className} border-white border-1
                              w-max text-center px-4 py-3 
                             rounded bg-gradient-to-r mx-auto bg-transparent
                             text-white`}>
-                                Buy Now
+                                {isListSegment? 'Buy Now' : 'Add To Cart'}
                             </button>
                     </div>
             </motion.div>
