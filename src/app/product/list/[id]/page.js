@@ -51,7 +51,8 @@ export default function page({params}) {
       exit={{ y: 0, opacity: 1 }}
       transition={{ ease: "easeInOut", duration: 0.75, staggerChildren: 0.5 }}
 
-     className={`${poppins.className} container rounded-md mx-auto min-w-[90%] max-w-[90%] border-2 border-black mt-24 flex flex-col gap-x-4`}>
+     className={`${poppins.className} container rounded-md mx-auto min-w-[90%] max-w-[90%]
+      border-2 border-black mt-24 flex flex-col gap-x-4 xsm:max-md:max-w-full xsm:max-md:-mt-0`}>
  
         <div className='flex items-center justify-between'>
           
@@ -65,7 +66,7 @@ export default function page({params}) {
               </Link>
             </div>
 
-          <h1 className='py-2 px-4 uppercase font-bold text-xl'>{products[id].name} </h1>
+          <h1 className='py-2 px-4 uppercase font-bold text-xl xsm:max-sm:hidden'>{products[id].name} </h1>
           
           <div className='flex items-center bg-gradient-to-t
           from-black via-zinc-800 text-white to-slate-800 rounded-md shadow-2xl

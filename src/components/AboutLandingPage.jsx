@@ -47,15 +47,15 @@ useGSAP(() => {
   });
 }, {scope: scopeContainer.current});
   return (
-    <div className={`${poppins.className} mx-auto container min-w-[100%] max-w-[100%] mt-[90px] relative`}>
+    <div className={`${poppins.className} mx-auto container min-w-[100%] max-w-[100%] mt-[90px] relative xsm:max-md:mx-auto xsm:max-md:mt-0`}>
         <div ref={scopeContainer} 
         className={`welcome_section 
         ${pathname==='/about'? 'bg-[url("/images/client3.jpg")] mx-auto min-w-[90%] max-w-[90%]'
          : 'bg-[url("/images/welcome_logo.png")] mx-10 min-w-[80%] max-w-[80%]'} 
         bg-cover bg-center container text-white gap-4 pt-[53px] 
         border overflow-hidden border-[#589c4b]
-        rounded-md bg-[#569c4b]`}>
-        <div className='flex flex-col items-start gap-x-1 w-full px-16 z-10'>
+        rounded-md bg-[#569c4b] xsm:max-md:p-2 xsm:max-md:max-w-full`}>
+        <div className='flex flex-col items-start gap-x-1 w-full px-16 z-10 xsm:max-md:p-2'>
             <h1 className='text-4xl w-full'>{pathname=='/about'? 'ABOUT' : 'WELCOME TO'}</h1>
             <h1 className='text-[100px]'>FAVYSCENTS</h1>
             <p className='text-3xl w-full italic'>{pathname=='/about'?'':'Experience the Art of Fragrance'}</p>

@@ -38,9 +38,9 @@ const poppins = Poppins({subsets:['latin'], style:'italic', weight:'400'})
 export default function AboutFavy() {
   return (
     <div className='max-w-full p-8 mt-[200px] grid grid-cols-2 shadow-md rounded container 
-    bg-gradient-to-tr from-green-600 via-slate-700 to-black
+    bg-gradient-to-tr from-green-600 via-slate-700 to-black xsm:max-[400px]:p-2
     max-lg:grid-cols-1'>
-        <div className='shadow-md rounded py-4 pl-16'>
+        <div className='shadow-md rounded py-4 pl-16 xsm:max-[400px]:p-2'>
             <div className=' flex flex-col gap-2 items-start'>
                 {/* <p className='text-7xl'>Welcome to </p> */}
                 <h1 className={`${poppins.className} text-4xl text-white uppercase`}>
@@ -66,7 +66,8 @@ export default function AboutFavy() {
                 </button>
             </div>
         </div>
-        <div className='p-4 shadow-md rounded mx-auto w-auto overflow-hidden bg-white'>
+        <div className='p-4 shadow-md rounded mx-auto w-auto 
+        overflow-hidden bg-white xsm:max-md:max-w-full xsm:max-md:max-h-[320px]'>
             <Slider slides={slides} seconds={7000}/>
         </div>
     </div>

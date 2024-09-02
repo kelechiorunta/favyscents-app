@@ -12,14 +12,18 @@ export default function SelectedProduct({product}) {
 
   return (
     <motion.div
-    className='container text-white max-w-[100%] w-auto bg-gradient-conic from-zinc-950 via-slate-600 to-zinc-950'>
+    className='container text-white max-w-[100%] w-auto bg-gradient-conic
+     from-zinc-950 via-slate-600 to-zinc-950 xsm:max-md:max-w-full'>
         
-                <div className='gap-4 p-8 flex flex-wrap justify-evenly items-start border-2 border-black w-[100%]'>
-                    <div className='container mx-auto min-w-[45%] max-w-[45%] border-black shadow-2xl rounded'>
+                <div className='gap-4 p-8 flex flex-wrap justify-evenly items-start border-2 border-black w-[100%]
+                '>
+                    <div className='container mx-auto min-w-[45%] max-w-[45%] border-black shadow-2xl rounded
+                    xsm:max-md:max-w-full'>
                         {product && product.pic}
                     </div>
                     <div className='p-4 flex flex-col gap-4 container mx-auto min-w-[45%]
-                    bg-gradient-conic from-black via-slate-800 to-black max-w-[45%] border-white border-1 shadow-2xl rounded'>
+                    bg-gradient-conic from-black via-slate-800 to-black max-w-[45%]
+                     border-white border-1 shadow-2xl rounded xsm:max-md:max-w-full'>
                         <h1 className='container text-5xl'>{product && product.name}</h1>
                         <h1 className='container text-3xl'>{product && product.price}</h1>
                         <p className='container '>

@@ -51,12 +51,14 @@ export default function CartSection() {
     
 
   return (
-    <div className='container max-w-full flex flex-col gap-4'>
+    <div className='container max-w-full flex flex-col gap-4 xsm:max-md:max-w-full'>
         {console.log(memoizedValues)}
-        <ul className='container flex flex-col justify-evenly shadow-xl rounded-md bg-white text-black'>
+        <ul className='container flex flex-col justify-evenly shadow-xl rounded-md
+         bg-white text-black xsm:max-md:max-w-full'>
         {cartItems && cartItems.map(items=>{
             return(
-                <div className='container min-w-[90%] max-w-[90%] mx-auto gap-2 items-center justify-between p-4 shadow-md flex'>
+                <div className='container min-w-[90%] max-w-[90%] mx-auto gap-2 items-center 
+                justify-between p-4 shadow-md flex xsm:max-md:max-w-full'>
                     <div className='container flex justify-start'>
                         <Image width={144} height={144} src={items.picture} alt="pic"/>
                     </div>

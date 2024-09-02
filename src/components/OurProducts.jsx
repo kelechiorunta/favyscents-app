@@ -113,20 +113,22 @@ function OurProducts() {
     const slidetexts = `Your  Choicest  Brands`;
   
     return (
-      <div className={`container ${isListSegment ? 'max-w-[90%] min-w-[90%]' : 'max-w-[90%] min-w-[90%]'} flex flex-col mx-auto items-center justify-center`}>
+      <div className={`container ${isListSegment ? 'max-w-[90%] min-w-[90%]' : 'max-w-[90%] min-w-[90%]'} flex flex-col mx-auto items-center justify-center
+       xsm:max-[400px]:max-w-[400px] xsm:max-[400px]:p-2 ${isListSegment && 'xsm:max-[400px]' ? 'mt-8' : 'mt-4'}`}>
         <motion.div
           className='max-w-full mx-auto container flex flex-col items-center gap-8 px-8 mt-[200px] py-16
-          bg-gradient-conic from-slate-600 via-slate-300 to-slate-600'>
-          <h1 className={`text-[40px] ${poppins.className} mt-4 text-center`}>{!isListSegment ? 'OUR PRODUCTS' : 'COLLECTIONS'}</h1>
+          bg-gradient-conic from-slate-600 via-slate-300 to-slate-600 xsm:max-[400px]:p-2 xsm:max-[400px]:max-w-[400px]'>
+          <h1 className={`text-[40px] ${poppins.className} mt-4 text-center xsm:max-[400px]:text-3xl`}>{!isListSegment ? 'OUR PRODUCTS' : 'COLLECTIONS'}</h1>
           {isListSegment && (
             <motion.h1
               initial="hidden"
               animate="visible"
               variants={parentVariant}
               transition={isAnimationComplete && { duration: 2, ease: 'backInOut' }}
-              style={{ color: isAnimationComplete ? 'green' : 'black', scale: isAnimationComplete ? 1.3 : 1.0 }}
+              style={{ color: isAnimationComplete ? 'green' : 'black', scale: isAnimationComplete && innerWidth>700 ? 1.2 : 1.0 }}
               onAnimationComplete={() => setIsAnimationComplete(true)}
-              className={`${poppins.className} -mt-4 text-center w-full text-2xl uppercase`}
+              className={`${poppins.className} -mt-4 text-center w-full text-2xl uppercase xsm:max-[400px]:scale-10
+               xsm:max-[400px]:leading-1 xsm:max-[400px]:text-xl`}
             >
               {slidetexts.split('').map((char, index) => (
                 <motion.span
@@ -134,7 +136,7 @@ function OurProducts() {
                   variants={parentVariant}
                   transition={{ duration: 0.1, stagger: 0.3, repeat: Infinity, repeatType: "reverse" }}
                   style={{ display: 'inline-block', letterSpacing: '0.5rem' }}
-                  className='animate-pulse leading-8'
+                  className='animate-pulse leading-8 xsm:max-[400px]:scale-10 xsm:max-[400px]:leading-1'
                 >
                   {char === ' ' ? '\u00A0' : char}
                 </motion.span>
@@ -152,7 +154,8 @@ function OurProducts() {
             initial='hidden'
             animate='visible'
             variants={parentVariant}
-            className={`container ${isListSegment ? 'max-w-[98.5%] min-w-[98.5%]' : 'max-w-[55%]'}min-h-[90%] max-h-[300px] items-center flex flex-nowrap px-1 shadow-2xl rounded-md overflow-hidden gap-x-1 justify-evenly ${isListSegment && '-mt-12'}`}>
+            className={`container ${isListSegment ? 'max-w-[98.5%] min-w-[98.5%]' : 'max-w-[55%]'}min-h-[90%] max-h-[300px] items-center flex flex-nowrap px-1 shadow-2xl rounded-md overflow-hidden
+             gap-x-1 justify-evenly ${isListSegment && '-mt-12'} xsm:max-[400px]:overflow-x-scroll`}>
             {displayedProducts && displayedProducts.map((items, index) => {
               return (
                 <motion.div

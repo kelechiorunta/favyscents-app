@@ -10,9 +10,10 @@ export default function MainFooter() {
     const pathname = usePathname()
     return (
         <footer className={`mx-auto containter max-w-full bg-gradient-to-br from-slate-900
-    via bg-slate-500 to-black flex flex-wrap justify-between items-center p-8`}>
+        via bg-slate-500 to-black flex flex-wrap justify-between items-center 
+        p-8 xsm:max-[400px]:p-2 xsm:max-[400px]:justify-center xsm:max-md:py-8`}>
             <nav className='container w-auto flex flex-col gap-8 justify-center
-        items-center'>
+        items-center xsm:max-[400px]:justify-center'>
                 <Image
                     className='container max-w-[100px] mx-auto w-[70%] h-[70%]'
                     width={44}
@@ -46,7 +47,7 @@ export default function MainFooter() {
             </nav>
 
             <nav className='container w-auto flex flex-col gap-4 justify-center
-        items-center'>
+        items-center xsm:max-[400px]:justify-center'>
                 <h1 className={`${poppins.className} text-center text-white text-3xl`}>CONTACT US</h1>
 
                 <nav className={`${poppins.className} 

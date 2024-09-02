@@ -12,10 +12,13 @@ export default function page() {
       animate={{ x: 0, y: 0, opacity: 1 }}
       exit={{ x: 0, opacity: 1 }}
       transition={{ ease: "easeInOut", duration: 0.75, staggerChildren: 0.5 }}
-    className='container max-w-full border-2 border-black p-4'>
-        <div className='container mx-auto  min-w-[90%] max-w-[90%]'>
+    className='container max-w-full border-2 border-black p-4 xsm:max-md:max-w-full
+    xsm:max-md:p-0'>
+        <div className='container mx-auto  min-w-[90%] max-w-[90%] 
+        xsm:max-md:max-w-full '>
             <AboutLandingPage/>
-            <div className='container -ml-24'><Carousel/></div>
+            <div className='container -ml-24 xsm:max-md:scale-50
+            xsm:max-md:mx-auto'><Carousel/></div>
         </div>
     </motion.div>
   )

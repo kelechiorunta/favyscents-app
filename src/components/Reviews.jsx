@@ -67,7 +67,8 @@ function Reviews() {
     const {slideNo, setSlideNo} = slide
 
   return (
-    <div className='container pt-8 pb-16 max-w-full flex flex-col mt-[200px] bg-gradient-to-b from-slate-200 via-zinc-500 to-black'>
+    <div className='container pt-8 pb-16 max-w-full flex flex-col mt-[200px]
+     bg-gradient-to-b from-slate-200 via-zinc-500 to-black xsm:max-[400px]:gap-y-8'>
         <h1 className={`${poppins.className} mx-auto py-4 text-center container text-[40px] uppercase`}>
             WHAT SAYS CUSTOMERS
         </h1>

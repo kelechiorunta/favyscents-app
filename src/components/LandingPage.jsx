@@ -89,7 +89,7 @@ export default function LandingPage() {
         <motion.div 
        transition={{stagger:0.5, duration:1}}
        variants={childVariants}
-        className='shadow-md rounded py-4 pl-16 container'>
+        className='shadow-md rounded py-4 pl-16 container xsm:max-[400px]:p-2'>
             <motion.div 
                 transition={{stagger:0.5, duration:1}}
                 variants={childVariants}
@@ -119,7 +119,8 @@ export default function LandingPage() {
                 </button>
             </motion.div>
         </motion.div>
-        <div className='p-4 container shadow-md rounded-full mx-auto w-auto overflow-hidden bg-white'>
+        <div className='p-4 container shadow-md rounded-full mx-auto
+         w-auto overflow-hidden bg-white xsm:max-[400px]:rounded-full xsm:max-sm:max-h-[330px]'>
             <Slider slides={slides} seconds={7000}/>
         </div>
     </motion.div>
