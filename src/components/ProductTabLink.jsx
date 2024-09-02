@@ -14,14 +14,14 @@ export default function ProductTabLink({path, children}) {
   const isActive = (pathname==path)
   const { productNo, setProductNo } = useContext(slideContext)
 
-  const activeIcon = (pathname, isActive) => {
-    if ((pathname=='/product') && isActive ){
-      return <FaHome fill={'white'} size={20}/>
-    } else if (pathname==='/product/list' && isActive){
-      return <FaCartPlus fill={'white'} size={20}/>
-    }
-    // return <FaHome fill={isActive && 'white'} size={20}/> || <FaCartPlus fill={!isActive && 'black'} size={20}/>
-  }
+  // const activeIcon = (pathname, isActive) => {
+  //   if ((pathname=='/product') && isActive ){
+  //     return <FaHome fill={'white'} size={20}/>
+  //   } else if (pathname==='/product/list' && isActive){
+  //     return <FaCartPlus fill={'white'} size={20}/>
+  //   }
+  //   // return <FaHome fill={isActive && 'white'} size={20}/> || <FaCartPlus fill={!isActive && 'black'} size={20}/>
+  // }
 
   return (
     <Link 

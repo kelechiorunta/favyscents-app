@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext } from 'react'
+import React, { useContext, memo } from 'react'
 import Slider from '@/app/Slider'
 import { Poppins } from 'next/font/google'
 import { FaReact } from 'react-icons/fa'
@@ -61,9 +61,11 @@ const slides = [{
     </p>},
     ]
 
-export default function Reviews() {
+function Reviews() {
 
-    const {slideNo, setSlideNo} = useContext(slideContext)
+    const slide = useContext(slideContext)
+    const {slideNo, setSlideNo} = slide
+
   return (
     <div className='container pt-8 pb-16 max-w-full flex flex-col mt-[200px] bg-gradient-to-b from-slate-200 via-zinc-500 to-black'>
         <h1 className={`${poppins.className} mx-auto py-4 text-center container text-[40px] uppercase`}>
@@ -88,3 +90,4 @@ export default function Reviews() {
     </div>
   )
 }
+export default memo(Reviews)

@@ -90,7 +90,7 @@ export default function LandingPage() {
        transition={{stagger:0.5, duration:1}}
        variants={childVariants}
         className='shadow-md rounded py-4 pl-16 container'>
-            <motion.h1 
+            <motion.div 
                 transition={{stagger:0.5, duration:1}}
                 variants={childVariants}
                 className=' flex flex-col gap-2 items-start'>
@@ -117,7 +117,7 @@ export default function LandingPage() {
                   from-slate-900 via-slate-700 to-slate-900`}>
                     BUY NOW
                 </button>
-            </motion.h1>
+            </motion.div>
         </motion.div>
         <div className='p-4 container shadow-md rounded-full mx-auto w-auto overflow-hidden bg-white'>
             <Slider slides={slides} seconds={7000}/>

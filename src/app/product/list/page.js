@@ -1,10 +1,12 @@
+'use client'
+
 import AboutLandingPage from '@/components/AboutLandingPage'
 import OurProducts from '@/components/OurProducts'
 import Reviews from '@/components/Reviews'
 import SearchProduct from '@/components/SearchProduct'
 import React from 'react'
 import { Poppins } from 'next/font/google'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 
 const poppins = Poppins({subsets: ['latin'], weight: '400'})
 

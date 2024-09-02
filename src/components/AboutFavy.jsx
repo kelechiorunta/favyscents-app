@@ -41,7 +41,7 @@ export default function AboutFavy() {
     bg-gradient-to-tr from-green-600 via-slate-700 to-black
     max-lg:grid-cols-1'>
         <div className='shadow-md rounded py-4 pl-16'>
-            <h1 className=' flex flex-col gap-2 items-start'>
+            <div className=' flex flex-col gap-2 items-start'>
                 {/* <p className='text-7xl'>Welcome to </p> */}
                 <h1 className={`${poppins.className} text-4xl text-white uppercase`}>
                     ABOUT OUR BEAUTY SOTORE
@@ -64,7 +64,7 @@ export default function AboutFavy() {
                   from-slate-900 via-slate-700 to-slate-900`}>
                     READ MORE
                 </button>
-            </h1>
+            </div>
         </div>
         <div className='p-4 shadow-md rounded mx-auto w-auto overflow-hidden bg-white'>
             <Slider slides={slides} seconds={7000}/>
