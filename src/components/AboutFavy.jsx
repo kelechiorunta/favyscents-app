@@ -6,7 +6,7 @@ import Typer from './Typer'
 import { Poppins } from 'next/font/google'
 
 const slides = [{
-    id:0, heroPic: <img
+    id:0, pic:'/images/image1.png', heroPic: <img
     className='rounded-md w-full h-full'
     fetchPriority='high'
     width={144}
@@ -14,7 +14,7 @@ const slides = [{
     src={'/images/image1.png'} 
     alt='perfume1' />},
 
-    {id:1, heroPic: <img
+    {id:1, pic:'/images/image2.png', heroPic: <img
     className='rounded-md w-full h-full'
     fetchPriority='hight'
     width={144}
@@ -22,7 +22,7 @@ const slides = [{
     src={'/images/image2.png'} 
     alt='perfume2' />},
 
-    {id:2, heroPic: <img
+    {id:2, pic:'/images/image3.png', heroPic: <img
         className='rounded-md w-full h-full'
         fetchPriority='high'
         width={144}
@@ -37,7 +37,7 @@ const poppins = Poppins({subsets:['latin'], style:'italic', weight:'400'})
 
 export default function AboutFavy() {
   return (
-    <div className='max-w-full p-8 mt-[200px] grid grid-cols-2 shadow-md rounded container 
+    <div className='max-w-full p-8 mt-[70px] grid grid-cols-2 shadow-md rounded container 
     bg-gradient-to-tr from-green-600 via-slate-700 to-black xsm:max-[400px]:p-2
     max-lg:grid-cols-1'>
         <div className='shadow-md rounded py-4 pl-16 xsm:max-[400px]:p-2'>

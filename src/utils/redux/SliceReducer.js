@@ -47,6 +47,26 @@ const SliceReducer = createSlice({
           console.log('Updated cart:', state.cart);
       },
 
+      subtractfromCart: (state=initialState, action) => {
+        const { id, name, price, picture } = action.payload;
+        const existingProduct = state.cart.find(item => item.name === name);
+      
+        if (existingProduct) {
+          console.log(`Updating quantity for: ${name}`);
+          if (existingProduct.quantity <=1){
+            existingProduct.quantity = 0;
+          }else{
+            existingProduct.quantity -= 1;
+          }
+          
+        } else {
+          console.log(`Adding new product: ${name}`);
+          state.cart.push({ id, name, price, picture, quantity: 1 });
+        }
+      
+          console.log('Updated cart:', state.cart);
+      },
+
     incrementByAmount: (state, action) => {
       state.value += action.payload; // Increment by a specific amount
     },
@@ -54,7 +74,7 @@ const SliceReducer = createSlice({
 });
 
 // Export the actions
-export const { addtoCart, removefromCart, incrementByAmount } = SliceReducer.actions;
+export const { addtoCart, removefromCart, incrementByAmount, subtractfromCart } = SliceReducer.actions;
 
 // Export the reducer to be used in the store
 export default SliceReducer.reducer;

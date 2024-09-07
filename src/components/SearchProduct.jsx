@@ -10,7 +10,8 @@ export default function SearchProduct() {
         setName(value)
     }
   return (
-    <form className='flex gap-x-4 container max-w-[90%] p-2 shadow-md rounded-md my-4 mx-auto'>
+    <form className='flex gap-x-4 container max-w-[90%] p-2 shadow-md
+     rounded-md my-4 mx-auto'>
         <input
         placeholder='Enter Search'
         name='name'

@@ -11,9 +11,9 @@ export default function MainFooter() {
     return (
         <footer className={`mx-auto containter max-w-full bg-gradient-to-br from-slate-900
         via bg-slate-500 to-black flex flex-wrap justify-between items-center 
-        p-8 xsm:max-[400px]:p-2 xsm:max-[400px]:justify-center xsm:max-md:py-8`}>
+        p-8 xsm:max-[400px]:p-2 xsm:max-[400px]:justify-start xsm:max-md:py-8`}>
             <nav className='container w-auto flex flex-col gap-8 justify-center
-        items-center xsm:max-[400px]:justify-center'>
+        items-center xsm:max-sm:items-start'>
                 <Image
                     className='container max-w-[100px] mx-auto w-[70%] h-[70%]'
                     width={44}
@@ -47,25 +47,25 @@ export default function MainFooter() {
             </nav>
 
             <nav className='container w-auto flex flex-col gap-4 justify-center
-        items-center xsm:max-[400px]:justify-center'>
+        items-center xsm:max-[400px]:items-start xsm:max-[400px]:ml-0 xsm:max-md:p-2 '>
                 <h1 className={`${poppins.className} text-center text-white text-3xl`}>CONTACT US</h1>
 
                 <nav className={`${poppins.className} 
             p-4 container max-w-screen flex 
             flex-col text-white items-center justify-evenly
-             gap-4`}>
+             gap-4 xsm:max-md:p-2 xsm:max-md:ml-0 xsm:max-md:items-start`}>
                     <Link
-                        className={`flex gap-x-2 items-start`}
+                        className={`flex gap-x-2 xsm:max-md:ml-0`}
                         href={'/'}>
                         <FaMapMarkerAlt fill='white' size={20} /> Address: LAGOS, NIGERIA
                     </Link>
                     <Link
-                        className={`flex gap-x-2 items-start`}
+                        className={`flex gap-x-2 xsm:max-md:ml-0`}
                         href={'/about'}>
                         <FaPhone fill='white' size={20} /> <p className='flex flex-col'><span>Call: +234-93 923 3914,</span> 08065350031</p>
                     </Link>
                     <Link
-                        className={`flex gap-x-2 items-start`}
+                        className={`flex gap-x-2 xsm:max-md:ml-0`}
                         href={'/contact'}>
                         <FaEnvelope fill='white' size={20} /> <p className='flex flex-col'><span>Email: favyscents@gmail.com,</span> kelechiorunta1@gmail.com</p>
                     </Link>
@@ -74,13 +74,13 @@ export default function MainFooter() {
             </nav>
 
             <nav className='container w-auto flex flex-col gap-4 justify-center
-        items-center'>
+        items-center xsm:max-[400px]:items-start xsm:max-[400px]:ml-0 xsm:max-md:p-2 '>
                 <h1 className={`${poppins.className} text-center text-white text-3xl`}>CONTACT US</h1>
 
                 <nav className={`${poppins.className} 
             p-4 container max-w-screen flex 
             flex-col text-white items-center justify-evenly
-             gap-4`}>
+             gap-4 xsm:max-[400px]:items-start xsm:max-[400px]:ml-0 xsm:max-md:p-2 `}>
                     <Link
                         className={`flex gap-x-2 items-start`}
                         href={'/'}>

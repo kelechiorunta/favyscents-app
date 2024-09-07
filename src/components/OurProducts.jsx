@@ -10,6 +10,8 @@ import { useSelectedLayoutSegment } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import { addtoCart } from '@/utils/redux/SliceReducer'
+import { removefromCart } from '@/utils/redux/SliceReducer'
+import { subtractfromCart } from '@/utils/redux/SliceReducer'
 import { updateCart } from '@/utils/redux/thunk'
 
 const parentVariant = {
@@ -68,6 +70,8 @@ function OurProducts() {
     const [displayedProducts, setDisplayedProducts] = useState(products);
     const [searchedResults, setSearchedResults] = useState("");
     const [selectedId, setSelectedId] = useState(0);
+    const [cartid, setCartId] = useState(null)
+    const [quantity, setQuantity] = useState(null)
 
     const { productNo, setProductNo } = productContext
     
@@ -86,34 +90,45 @@ function OurProducts() {
       );
     };
   
-    const handleProductRef = (index) => {
+    const handleProductRef = useCallback((index) => {
       const activeProduct = productsRef.current[index];
       if (activeProduct) {
         activeProduct.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
       }
-    };
+    }, [productNo]);
 
     useEffect(()=>{
         handleProductRef(productNo)
     },[productNo])
 
-    const handleCart = useCallback((items) => {
+    const handleCartAdd = (items) => {
         const { id, name, price, picture } = items
 
-        // dispatch(updateCart({id, name, price, picture}))
-        dispatch(addtoCart({id, name, price, picture}))
-        // console.log(cartItems)
+        setCartId(id)
+        dispatch(addtoCart({id, name, price, picture}))      
 
-    }, [cartItems])
+    }
 
-    const memoizedValues = useMemo(() => 
-        cartItems, 
-      [cartItems]);
+    const handleCartRemoval = (items) => {
+        const { id, name, price, picture } = items
+
+        setCartId(id)
+        dispatch(subtractfromCart({id, name, price, picture}))      
+
+    }
+
+    const handleCartAnimation = (items) => {
+        const { id, name, price, picture } = items
+        // setCartId(id)
+        
+        // setQuantity(cartItems[id]?.quantity)
+    }
+
   
     const slidetexts = `Your  Choicest  Brands`;
   
     return (
-      <div className={`container ${isListSegment ? 'max-w-[90%] min-w-[90%]' : 'max-w-[90%] min-w-[90%]'} flex flex-col mx-auto items-center justify-center
+      <div className={`mt-8 container ${isListSegment ? 'max-w-[95%] min-w-[95%]' : 'max-w-[90%] min-w-[90%]'} flex flex-col mx-auto items-center justify-center
        xsm:max-[400px]:max-w-[400px] xsm:max-[400px]:p-2 ${isListSegment && 'xsm:max-[400px]' ? 'mt-8' : 'mt-4'}`}>
         <motion.div
           className='max-w-full mx-auto container flex flex-col items-center gap-8 px-8 mt-[200px] py-16
@@ -154,9 +169,9 @@ function OurProducts() {
             initial='hidden'
             animate='visible'
             variants={parentVariant}
-            className={`container ${isListSegment ? 'max-w-[98.5%] min-w-[98.5%]' : 'max-w-[55%]'}min-h-[90%] max-h-[300px] items-center flex flex-nowrap px-1 shadow-2xl rounded-md overflow-hidden
+            className={`container ${isListSegment ? 'max-w-[98.5%] min-w-[98.5%]' : 'max-w-[99%]'}min-h-[90%] max-h-[300px] items-center flex flex-nowrap px-1 shadow-2xl rounded-md overflow-hidden
              gap-x-1 justify-evenly ${isListSegment && '-mt-12'} xsm:max-[400px]:overflow-x-scroll`}>
-            {displayedProducts && displayedProducts.map((items, index) => {
+            {products && products.map((items, index) => {
               return (
                 <motion.div
                   ref={(el) => (productsRef.current[index] = el)}
@@ -173,11 +188,33 @@ function OurProducts() {
                       {items.name}
                     </p>
                     <button
-                    onClick={()=>handleCart(items)}
-                      className={`${poppins.className} border-white border-1 w-max text-center px-4 py-3 
-                      rounded bg-gradient-to-r mx-auto bg-transparent text-white`}>
-                      {isListSegment ? 'Buy Now' : 'Add To Cart'}
+                    onClick={()=>{handleCartAnimation(items); handleCartRemoval(items); }}
+                      className={`${poppins.className} relative border-white border-1 w-max text-center px-4 py-3 
+                      rounded bg-gradient-to-r -ml-4 mx-auto bg-transparent text-white`}>
+                      {isListSegment ? '-' : '-'}
                     </button>
+                    <button
+                    onClick={()=>{handleCartAnimation(items); handleCartAdd(items); }}
+                      className={`${poppins.className} relative border-white border-1 w-max text-center px-4 py-3 
+                      -ml-4 rounded bg-gradient-to-r mx-auto bg-transparent text-white`}>
+                      {isListSegment ? 'Buy Now' : 'Add To Cart'}
+                        {/* {quantity} */}
+                      { 
+                        <motion.div
+                        initial='hidden'
+                        animate='visible'
+                        variants={parentVariant}
+                        className='w-[50px] h-[50px] bg-black absolute bottom-[67%] left-[70%] text-white rounded-full items-center justify-center flex'>
+                    
+                        <motion.h1
+                        className='w-max rounded-full shadow-md text-[1rem] bg-black text-white p-2 items-center justify-center flex animate-ping'
+                        variants={childVariant}
+                        >{(cartid && (items.id===cartid) && cartItems) ? cartItems[cartid]?.quantity : cartItems[items.id]?.quantity}
+                        </motion.h1>
+                        
+                        </motion.div>} 
+                    </button>
+                    
                   </div>
                 </motion.div>
               )
@@ -188,9 +225,10 @@ function OurProducts() {
               return (
                 <button
                   onClick={() => {
-                    setDisplayedProducts(products && products.slice(index * 3, (index + 1) * 3));
+                    handleProductRef(index*4)
+                    // setDisplayedProducts(products && products.slice(index * 3, (index + 1) * 3));
                     setSelectedId(index);
-                    setSearchedResults(`Showing ${(index * 3) + 1} - ${((index + 1) * 3 > products.length) ? products.length : (index + 1) * 3} of ${products.length} items`);
+                    // setSearchedResults(`Showing ${(index * 3) + 1} - ${((index + 1) * 3 > products.length) ? products.length : (index + 1) * 3} of ${products.length} items`);
                   }}
                   className={`${selectedId == index && 'selected'} ${poppins.className} 
                       flex items-center justify-center text-[20px] p-2 w-[50px] h-[50px] rounded-full`}>

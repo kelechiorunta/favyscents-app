@@ -21,6 +21,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    max-width: 350px;
     /* backface-visibility: hidden; Ensure slides don't disappear when rotated */
     background-color: lightblue;
     border-radius: 10px;

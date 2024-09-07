@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
 import { Poppins } from "next/font/google";
 import { Great_Vibes } from "next/font/google";
+import { Anaheim } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
 import AppContext from "@/components/AppContext";
 // import { Provider } from "react-redux";
 // import store from "@/utils/redux/store";
@@ -14,6 +16,8 @@ import ProviderContext from "@/components/ProviderContext";
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight:'400' });
 const great_vibes = Great_Vibes({subsets: ['latin'], weight: '400'})
+const anaheim = Anaheim({subsets: ['latin'], weight: '400'})
+const cormorant = Cormorant_Garamond({subsets: ['latin'], weight: '400'})
 
 export const metadata = {
   title: "Create Next App",
@@ -27,7 +31,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${great_vibes.className} `}>
+      <body className={`${cormorant.className} `}>
         <ProviderContext>
         <AppContext>
          

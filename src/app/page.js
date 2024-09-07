@@ -13,7 +13,7 @@ export default function Home() {
      overflow-hidden xsm-max-[400px]:p-2">
       <div className="container z-20 max-w-full fixed"><MainHeader/></div>
       <LandingPage/>
-      <div className='mt-8 w-full mx-auto xsm:max-sm:scale-50 sm:max-md:scale-60'><Carousel/></div>
+      <div className='mt-[70px] w-full mx-auto xsm:max-sm:scale-50 sm:max-md:scale-60'><Carousel/></div>
       <OurProducts/>
       <AboutFavy/>
       <Reviews/>

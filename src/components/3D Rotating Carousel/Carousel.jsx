@@ -51,22 +51,22 @@ export default function Carousel() {
   }, [rotationAngle, controls]);
 
   return (
-    <div className={`${styles.carousel} container max-w-full min-w-[20%]`}>
+    <div className={`${styles.carousel} container min-w-[20%]`}>
       <motion.div
-        className={styles.slidesContainer}
+        className={`${styles.slidesContainer} min-w-[350px]`}
         animate={controls}
         initial={{ rotateY: 0 }}
       >
         {slides.map((slide, index) => (
           <motion.div
             key={slide.id}
-            className={`${styles.slide} ${(activeIndex==slide.id)? 'bg-gradient-to-r from-black via-slate-600 to-slate-900' : 'bg-gradient-to-r from-gray-900 via-slate-600 to-slate-900'}`}
+            className={` ${styles.slide} ${(activeIndex==slide.id)? 'bg-gradient-to-r from-black via-slate-600 to-slate-900' : 'bg-gradient-to-r from-gray-900 via-slate-600 to-slate-900'} container w-[350px] h-max overflow-hidden`}
             onClick={() => handleClick(index)}
             style={{
               transform: `rotateY(${72 * index}deg) translateZ(300px)`, // Positioning slides in 3D space
             }}
           >
-            <Image src={slide.content} width={344} height={344} alt='slide' />
+            <Image className='container min-w-[450px] min-h-[350px]' src={slide.content} width={344} height={344} alt='slide' />
           </motion.div>
         ))}
       </motion.div>

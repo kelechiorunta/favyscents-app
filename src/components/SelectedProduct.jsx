@@ -13,7 +13,7 @@ export default function SelectedProduct({product}) {
   return (
     <motion.div
     className='container text-white max-w-[100%] w-auto bg-gradient-conic
-     from-zinc-950 via-slate-600 to-zinc-950 xsm:max-md:max-w-full'>
+     from-zinc-950 via-slate-600 to-zinc-950 xsm:max-md:max-w-full '>
         
                 <div className='gap-4 p-8 flex flex-wrap justify-evenly items-start border-2 border-black w-[100%]
                 '>
