@@ -17,7 +17,7 @@ export default function Slider({ slides, seconds }) {
 
   // Preload small images
   const preloadSmallImages = () => {
-    const preloadedImages = slides.map((_, index) => {
+    const preloadedImages = slides && slides.map((_, index) => {
       const img = new window.Image(); // Use native Image object
       img.src = `/images/small-image${index + 1}.png`; 
       return { mypic: img.src }; // Return the image source as an object
@@ -28,17 +28,21 @@ export default function Slider({ slides, seconds }) {
 
   // Move slide forward or backward
   const moveSlideForward = () => {
-    setDirection(1);
-    setPrevSlide(slide);
-    setSlide((n) => (n + 1) % slides.length);
-    seconds === 10000 && setSlideNo((n) => (n + 1) % slides.length);
+    if (slides){
+      setDirection(1);
+      setPrevSlide(slide);
+      setSlide((n) => (n + 1) % slides.length);
+      seconds === 35000 && setSlideNo((n) => (n + 1) % slides.length);
+    }
   };
 
   const moveSlideBackward = () => {
-    setDirection(-1);
-    setPrevSlide(slide);
-    setSlide((n) => (n - 1 + slides.length) % slides.length);
-    seconds === 10000 && setSlideNo((n) => (n - 1 + slides.length) % slides.length);
+    if (slides){
+      setDirection(-1);
+      setPrevSlide(slide);
+      setSlide((n) => (n - 1 + slides.length) % slides.length);
+      seconds === 35000 && setSlideNo((n) => (n - 1 + slides.length) % slides.length);
+    }
   };
 
   // Handle page visibility (pause slider when not visible)
@@ -76,20 +80,21 @@ export default function Slider({ slides, seconds }) {
       <div className='flex relative mx-auto container w-max'>
         <div className="rounded-xl mx-auto container flex xsm:max-[400px]:max-w-[400px] xsm:max-sm:min-h-[300px] w-[400px] h-[400px]" style={{ overflow: 'hidden', position: 'relative' }}>
           <AnimatePresence initial={false} custom={direction}>
-            {slides.length > 0 &&
+            {slides && slides.length > 0 &&
               slides.map((slidepic, index) => (
                 (index === slide || index === prevSlide) && (
                   <motion.div
-                    className={`max-w-[500px] bg-cover bg-center rounded-xl flex flex-col items-center justify-center container w-max gap-y-2`}
+                    className={`bg-[url(${slides && slides[index]?.placeholderImg} first-line:max-w-[500px] bg-auto bg-[100px] rounded-xl flex flex-col items-center justify-center container w-max gap-y-2`}
                     key={index}
                     initial={{ x: index === slide ? (direction === 1 ? '100%' : '-100%') : (direction === 1 ? '-100%' : '100%') }}
                     animate={{ x: index === slide ? 0 : (direction === 1 ? '-100%' : '100%') }}
                     exit={{ x: index === slide ? (direction === 1 ? '-100%' : '100%') : (direction === 1 ? '-100%' : '100%') }}
-                    transition={{ duration: 0.5 }}
+                    // transition={{ duration: 0.5 }}
+                    transition={{ duration: 6.955, ease: "linear" }}
                     style={{ position: 'absolute', width: '100%' }}
                   >
                     {/* Small Image Placeholder */}
-                    <div className={`bg-[url(${imgs && imgs[index]?.mypic})] bg-cover bg-center container max-w-[400px] max-h-[400px]`}>
+                    <div className={`bg-[url(${slides && slides[index]?.placeholderImg})] bg-cover bg-center container max-w-[400px] max-h-[400px]`}>
                       {slides && slides[index]?.heroPic}
                       {slides && slides[index]?.testimonial}
                       {slides && slides[index]?.client}

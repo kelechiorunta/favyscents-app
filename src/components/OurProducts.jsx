@@ -13,6 +13,8 @@ import { addtoCart } from '@/utils/redux/SliceReducer'
 import { removefromCart } from '@/utils/redux/SliceReducer'
 import { subtractfromCart } from '@/utils/redux/SliceReducer'
 import { updateCart } from '@/utils/redux/thunk'
+import { gsap } from 'gsap/all'
+
 
 const parentVariant = {
     hidden: {opacity:0, x:-20, y:-200},
@@ -58,9 +60,8 @@ const products = [
 ]
 
 function OurProducts() {
-
     const cartItems = useSelector((state) => state.cartReducer.cart, shallowEqual);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
     const segment = useSelectedLayoutSegment();
     const pathname = usePathname();
@@ -70,66 +71,73 @@ function OurProducts() {
     const [displayedProducts, setDisplayedProducts] = useState(products);
     const [searchedResults, setSearchedResults] = useState("");
     const [selectedId, setSelectedId] = useState(0);
-    const [cartid, setCartId] = useState(null)
-    const [quantity, setQuantity] = useState(null)
-
-    const { productNo, setProductNo } = productContext
-    
+    const [cartId, setCartId] = useState(null);
   
-    // Log only once on initial render
+    const { productNo, setProductNo } = productContext;
+
+    const memoizedcartItems = useMemo(() => {
+        return cartItems;  // Return the value to memoize
+    }, [cartItems]);
+  
     useEffect(() => {
       console.log('hello');
     }, []);
-
   
-    const handlePaginate = (arr, index) => {
-      const slicedArr = arr && arr.slice(index * 3, (index + 1) * 3);
+    const handlePaginate = useCallback((arr, index) => {
+      const slicedArr = arr.slice(index * 3, (index + 1) * 3);
       setDisplayedProducts(slicedArr);
       setSearchedResults(
         `Showing ${(index * 3) + 1} - ${((index + 1) * 3 > products.length) ? products.length : (index + 1) * 3} of ${products.length} items`
       );
-    };
+    }, []);
   
     const handleProductRef = useCallback((index) => {
       const activeProduct = productsRef.current[index];
       if (activeProduct) {
         activeProduct.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
       }
-    }, [productNo]);
-
-    useEffect(()=>{
-        handleProductRef(productNo)
-    },[productNo])
-
-    const handleCartAdd = (items) => {
-        const { id, name, price, picture } = items
-
-        setCartId(id)
-        dispatch(addtoCart({id, name, price, picture}))      
-
-    }
-
-    const handleCartRemoval = (items) => {
-        const { id, name, price, picture } = items
-
-        setCartId(id)
-        dispatch(subtractfromCart({id, name, price, picture}))      
-
-    }
-
-    const handleCartAnimation = (items) => {
-        const { id, name, price, picture } = items
-        // setCartId(id)
-        
-        // setQuantity(cartItems[id]?.quantity)
-    }
-
+    }, []);
   
-    const slidetexts = `Your  Choicest  Brands`;
+    useEffect(() => {
+      handleProductRef(productNo);
+    }, []);
+  
+    const handleCartAction = useCallback((items, action) => {
+      const { id, name, price, picture } = items;
+      setCartId(id);
+      dispatch(action({ id, name, price, picture }));
+    }, [dispatch, cartId]);
+  
+    const handleCartAdd = useCallback((items) => {
+      handleCartAction(items, addtoCart);
+    }, [handleCartAction]);
+  
+    const handleCartRemoval = useCallback((items) => {
+      handleCartAction(items, subtractfromCart);
+    }, [handleCartAction]);
+  
+    const handleCartAnimation = useCallback((items) => {
+      setCartId(items.id);
+    }, [cartId]);
+  
+    const slidetexts = `Your Choicest Brands`;
   
     return (
-      <div className={`mt-8 container ${isListSegment ? 'max-w-[95%] min-w-[95%]' : 'max-w-[90%] min-w-[90%]'} flex flex-col mx-auto items-center justify-center
+        <div className="relative">
+        <svg className="absolute inset-0 w-full h-full">
+          <defs>
+            <clipPath id="curveClipPath" clipPathUnits="objectBoundingBox">
+              {/* Example path with curves (Bezier) */}
+              <path d="M 0,0 L 0,0.9 C 0.8,0.8 1,1 1,0.8 L 1,0 L 0,0 Z" />
+            </clipPath>
+          </defs>
+        </svg>
+      <div 
+      style={{ clipPath: 'url(#curveClipPath)' }}
+      className={`container pb-24 ${isListSegment ? 'max-w-[95%] min-w-[95%]' : 'max-w-[90%] min-w-[90%]'} flex flex-col mx-auto items-center justify-center
        xsm:max-[400px]:max-w-[400px] xsm:max-[400px]:p-2 ${isListSegment && 'xsm:max-[400px]' ? 'mt-8' : 'mt-4'}`}>
+        
+        
         <motion.div
           className='max-w-full mx-auto container flex flex-col items-center gap-8 px-8 mt-[200px] py-16
           bg-gradient-conic from-slate-600 via-slate-300 to-slate-600 xsm:max-[400px]:p-2 xsm:max-[400px]:max-w-[400px]'>
@@ -142,7 +150,7 @@ function OurProducts() {
               transition={isAnimationComplete && { duration: 2, ease: 'backInOut' }}
               style={{ color: isAnimationComplete ? 'green' : 'black', scale: isAnimationComplete && innerWidth>700 ? 1.2 : 1.0 }}
               onAnimationComplete={() => setIsAnimationComplete(true)}
-              className={`${poppins.className} -mt-4 text-center w-full text-2xl uppercase xsm:max-[400px]:scale-10
+              className={`curveClipPath ${poppins.className} -mt-4 text-center w-full text-2xl uppercase xsm:max-[400px]:scale-10
                xsm:max-[400px]:leading-1 xsm:max-[400px]:text-xl`}
             >
               {slidetexts.split('').map((char, index) => (
@@ -207,9 +215,10 @@ function OurProducts() {
                         className='w-[50px] h-[50px] bg-black absolute bottom-[67%] left-[70%] text-white rounded-full items-center justify-center flex'>
                     
                         <motion.h1
-                        className='w-max rounded-full shadow-md text-[1rem] bg-black text-white p-2 items-center justify-center flex animate-ping'
+                        className='w-max rounded-full shadow-md text-[1rem] bg-black text-white p-2 items-center justify-center flex'
                         variants={childVariant}
-                        >{(cartid && (items.id===cartid) && cartItems) ? cartItems[cartid]?.quantity : cartItems[items.id]?.quantity}
+                        >{(cartItems && cartId && (cartId==items.id)) ? memoizedcartItems[cartId]?.quantity : memoizedcartItems[items.id]?.quantity}
+                            {/* {(cartid && (cartid === items.id)) ? cartItems && cartItems[cartid]?.quantity : cartItems[items.id]?.quantity} */}
                         </motion.h1>
                         
                         </motion.div>} 
@@ -240,6 +249,7 @@ function OurProducts() {
         </motion.div>
         
         
+      </div>
       </div>
     )
   }

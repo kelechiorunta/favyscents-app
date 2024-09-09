@@ -51,7 +51,7 @@ export default function CartSection() {
     
 
   return (
-    <div className='container max-w-full flex flex-col gap-4 xsm:max-md:max-w-full'>
+    <div className='container max-w-full flex flex-col gap-2 xsm:max-md:max-w-full'>
         {console.log(memoizedValues)}
         <ul className='container flex flex-col justify-evenly shadow-xl rounded-md
          bg-white text-black xsm:max-md:max-w-full'>
@@ -65,17 +65,17 @@ export default function CartSection() {
                     <div className='container flex flex-col items-start justify-start py-2'>
                         <p className='w-full text-left font-bold text-xl'>{items.name}</p>
                         <p className='w-full text-left'>Quantity: {items.quantity}</p>
-                        <p className='w-full text-left'>{formatCurrency((parseCurrency(items.price) * items.quantity), '£')}</p>
+                        <p className='w-full text-left font-bold'>{formatCurrency((parseCurrency(items.price) * items.quantity), '£')}</p>
                         <div className='flex items-center gap-x-2'>
                             <button 
                             onClick={()=>increment(items)}
-                            className='p-4 text-white shadow-md rounded 
-                            bg-gradient-conic from-slate-800 via-slate-500 to-slate-800'>
+                            className='p-3 text-white shadow-md rounded 
+                            bg-gradient-conic from-slate-800 via-slate-500 to-slate-800 hover:bg-white hover:text-black'>
                                 +
                             </button>
                             <button 
                             onClick={()=>decrement(items)}
-                            className='p-4 text-white shadow-md rounded
+                            className='p-3 text-white shadow-md rounded
                             bg-gradient-conic from-slate-800 via-slate-500 to-slate-800'>
                                 -
                             </button>

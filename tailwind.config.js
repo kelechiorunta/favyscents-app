@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      clipPath: {
+        'custom-polygon': 'polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 0 99%, 0% 70%, 0% 35%, 20% 10%)',
+      },
       screens: {
         "xsm" : "300px"
       },
@@ -17,5 +20,22 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    function ({ addUtilities }) {
+      addUtilities({
+        '.clip-polygon': {
+          'clip-path': 'polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 0 99%, 0% 70%, 0% 35%, 20% 10%)',
+        },
+      });
+    },
+
+    function ({ addUtilities }) {
+      addUtilities({
+        '.mask-curved': {
+          'mask-image': 'radial-gradient(circle at top, transparent 20%, white )',
+        },
+      });
+    },
+  ],
 };
