@@ -16,6 +16,7 @@ import { updateCart } from '@/utils/redux/thunk'
 import { gsap } from 'gsap/all'
 
 
+
 const parentVariant = {
     hidden: {opacity:0, x:-20, y:-200},
     visible: {opacity:1, x:0, y:0,
@@ -72,6 +73,9 @@ function OurProducts() {
     const [searchedResults, setSearchedResults] = useState("");
     const [selectedId, setSelectedId] = useState(0);
     const [cartId, setCartId] = useState(null);
+    // const [cart_quantity, setCartQuantity] = useState(null)
+    const [cartQuantity, setCartQuantity] = useState(0);
+
   
     const { productNo, setProductNo } = productContext;
 
@@ -96,29 +100,45 @@ function OurProducts() {
       if (activeProduct) {
         activeProduct.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
       }
-    }, []);
+    }, [productsRef.current, productNo]);
   
     useEffect(() => {
       handleProductRef(productNo);
     }, []);
   
-    const handleCartAction = useCallback((items, action) => {
-      const { id, name, price, picture } = items;
-      setCartId(id);
+    const memoizedCartItems = useMemo(() => cartItems, [cartItems]);
+
+    const handleCartAction = useCallback((item, action) => {
+      const { id, name, price, picture, quantity } = item;
+      setCartId(id);  // Only the selected item updates
       dispatch(action({ id, name, price, picture }));
-    }, [dispatch, cartId]);
+      setCartQuantity(quantity);
+    }, [dispatch]);
   
-    const handleCartAdd = useCallback((items) => {
-      handleCartAction(items, addtoCart);
+    const handleCartAdd = useCallback((item) => {
+      handleCartAction(item, addtoCart);
+      setCartQuantity(item.quantity);  // Ensure only the selected item updates
     }, [handleCartAction]);
   
-    const handleCartRemoval = useCallback((items) => {
-      handleCartAction(items, subtractfromCart);
+    const handleCartRemoval = useCallback((item) => {
+      handleCartAction(item, subtractfromCart);
     }, [handleCartAction]);
   
-    const handleCartAnimation = useCallback((items) => {
-      setCartId(items.id);
-    }, [cartId]);
+    const handleCartAnimation = useCallback((item) => {
+      if (item) {
+        setCartId(item.id);
+      }
+    }, []);
+
+    const getSelectedCart = (arr, items, id) => {
+        const foundSelectedCart = arr && arr.find(item=>{return item.id === items.id})
+        return foundSelectedCart?.quantity
+    }
+
+    const getNonSelectedCart = (arr, items, id) => {
+        const foundSelectedCart = arr && arr.map(item=>{return item.id == id})
+        return foundSelectedCart[0]?.quantity
+    }
   
     const slidetexts = `Your Choicest Brands`;
   
@@ -202,7 +222,7 @@ function OurProducts() {
                       {isListSegment ? '-' : '-'}
                     </button>
                     <button
-                    onClick={()=>{handleCartAnimation(items); handleCartAdd(items); }}
+                    onClick={()=>{()=>{setCartId(items.id)}; handleCartAnimation(items); handleCartAdd(items); }}
                       className={`${poppins.className} relative border-white border-1 w-max text-center px-4 py-3 
                       -ml-4 rounded bg-gradient-to-r mx-auto bg-transparent text-white`}>
                       {isListSegment ? 'Buy Now' : 'Add To Cart'}
@@ -214,12 +234,17 @@ function OurProducts() {
                         variants={parentVariant}
                         className='w-[50px] h-[50px] bg-black absolute bottom-[67%] left-[70%] text-white rounded-full items-center justify-center flex'>
                     
-                        <motion.h1
+                    { 
+                    <motion.h1
                         className='w-max rounded-full shadow-md text-[1rem] bg-black text-white p-2 items-center justify-center flex'
                         variants={childVariant}
-                        >{(cartItems && cartId && (cartId==items.id)) ? memoizedcartItems[cartId]?.quantity : memoizedcartItems[items.id]?.quantity}
+                        >
+                            {(memoizedCartItems && (cartId === items.id)) ?  memoizedcartItems.find(item=>{return item.id == cartId})?.quantity :  memoizedcartItems.find(item=>{return item.id == items.id})?.quantity}
+                            {/* {(memoizedcartItems && (cartId==items.id)) ? (memoizedcartItems[cartId]?.quantity ) : memoizedcartItems[items.id]?.quantity} */}
                             {/* {(cartid && (cartid === items.id)) ? cartItems && cartItems[cartid]?.quantity : cartItems[items.id]?.quantity} */}
+                            {console.log(cartId, cartItems)}
                         </motion.h1>
+                    }
                         
                         </motion.div>} 
                     </button>

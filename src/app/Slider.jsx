@@ -3,10 +3,11 @@ import React, { useEffect, useRef, useState, useContext, useCallback } from 'rea
 import { motion, AnimatePresence } from 'framer-motion';
 import { slideContext } from '@/components/AppContext';
 import Image from 'next/image';
+import { memo } from 'react';
 // import { FaArrowLeft, FaArrowRight, FaArrowCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa'
 // import Image from 'next/image';
 
-export default function Slider({ slides, seconds }) {
+function Slider({ slides, seconds, componentName }) {
   const [isVisible, setIsVisible] = useState(false);
   const { setSlideNo } = useContext(slideContext);
   const [slide, setSlide] = useState(0);
@@ -16,7 +17,7 @@ export default function Slider({ slides, seconds }) {
   const [imgs, setImgs] = useState([])
 
   // Preload small images
-  const preloadSmallImages = () => {
+  const preloadSmallImages = useCallback(() => {
     const preloadedImages = slides && slides.map((_, index) => {
       const img = new window.Image(); // Use native Image object
       img.src = `/images/small-image${index + 1}.png`; 
@@ -24,26 +25,26 @@ export default function Slider({ slides, seconds }) {
     });
 
     setImgs(preloadedImages); // Set the state with the preloaded images
-  };
+  }, [imgs]);
 
   // Move slide forward or backward
-  const moveSlideForward = () => {
+  const moveSlideForward = useCallback(() => {
     if (slides){
       setDirection(1);
       setPrevSlide(slide);
       setSlide((n) => (n + 1) % slides.length);
-      seconds === 35000 && setSlideNo((n) => (n + 1) % slides.length);
+      seconds && setSlideNo((n) => (n + 1) % slides.length);
     }
-  };
+  }, [direction, prevSlide, slide, seconds, slides]);
 
-  const moveSlideBackward = () => {
+  const moveSlideBackward = useCallback(() => {
     if (slides){
       setDirection(-1);
       setPrevSlide(slide);
       setSlide((n) => (n - 1 + slides.length) % slides.length);
-      seconds === 35000 && setSlideNo((n) => (n - 1 + slides.length) % slides.length);
+      seconds && setSlideNo((n) => (n - 1 + slides.length) % slides.length);
     }
-  };
+  }, [direction, prevSlide, slide, seconds, slides]);
 
   // Handle page visibility (pause slider when not visible)
   const handleVisibilityChange = useCallback(() => {
@@ -90,7 +91,7 @@ export default function Slider({ slides, seconds }) {
                     animate={{ x: index === slide ? 0 : (direction === 1 ? '-100%' : '100%') }}
                     exit={{ x: index === slide ? (direction === 1 ? '-100%' : '100%') : (direction === 1 ? '-100%' : '100%') }}
                     // transition={{ duration: 0.5 }}
-                    transition={{ duration: 6.955, ease: "linear" }}
+                    transition={{ duration: componentName==="Reviews"? 0.5 : 6.955, ease: "linear" }}
                     style={{ position: 'absolute', width: '100%' }}
                   >
                     {/* Small Image Placeholder */}
@@ -100,6 +101,7 @@ export default function Slider({ slides, seconds }) {
                       {slides && slides[index]?.client}
 
                       {/* Large Image with Opacity Transition */}
+                      
                       {(
                         <Image
                           className={`transition-opacity duration-1000 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'} container bg-cover bg-center rounded-md w-full min-w-[450px] min-h-[450px] h-max`}
@@ -109,7 +111,7 @@ export default function Slider({ slides, seconds }) {
                           height={244}
                           src={slides && slides[index].pic}
                           alt={`perfume${index + 1}`}
-                          unoptimized // Use this prop if you're loading images that aren't optimized by Next.js
+                          // unoptimized // Use this prop if you're loading images that aren't optimized by Next.js
                         />
                       )}
                     </div>
@@ -122,3 +124,5 @@ export default function Slider({ slides, seconds }) {
     </div>
   );
 }
+
+export default memo(Slider)
