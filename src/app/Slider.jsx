@@ -96,13 +96,16 @@ function Slider({ slides, seconds, componentName }) {
                   >
                     {/* Small Image Placeholder */}
                     <div className={`bg-[url(${slides && slides[index]?.placeholderImg})] bg-cover bg-center container max-w-[400px] max-h-[400px]`}>
+                      {
+                        componentName==="Reviews"?
+                      <>
                       {slides && slides[index]?.heroPic}
                       {slides && slides[index]?.testimonial}
                       {slides && slides[index]?.client}
-
-                      {/* Large Image with Opacity Transition */}
+                      </>
                       
-                      {(
+                      :
+                      
                         <Image
                           className={`transition-opacity duration-1000 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'} container bg-cover bg-center rounded-md w-full min-w-[450px] min-h-[450px] h-max`}
                           loading='lazy'
@@ -113,7 +116,8 @@ function Slider({ slides, seconds, componentName }) {
                           alt={`perfume${index + 1}`}
                           // unoptimized // Use this prop if you're loading images that aren't optimized by Next.js
                         />
-                      )}
+                      
+                    }
                     </div>
                   </motion.div>
                 )

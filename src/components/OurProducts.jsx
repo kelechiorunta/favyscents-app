@@ -14,6 +14,7 @@ import { removefromCart } from '@/utils/redux/SliceReducer'
 import { subtractfromCart } from '@/utils/redux/SliceReducer'
 import { updateCart } from '@/utils/redux/thunk'
 import { gsap } from 'gsap/all'
+import { FaBuyNLarge, FaBuysellads, FaCartPlus, FaProductHunt, FaSalesforce } from 'react-icons/fa'
 
 
 
@@ -39,23 +40,23 @@ const poppins = Poppins({subsets:['latin'], style:'normal', weight:'400'})
 
 const products = [
     {id:0, name:"CHOCO", price:"€2,000", picture:'/images/image1.png',
-    pic:<Image priority='high' fetchPriority='high' className='rounded-md shadow-md pl-6 py-6 pr-4
+    pic:<Image priority='high' fetchPriority='high' className=' mx-auto rounded-md shadow-md py-1 px-1 hover:scale-125 transition-all duration-700 ease-in-out
     bg-white' src={'/images/image1.png'} alt='perfume1'
     width={244} height={244} />},
     {id:1, name:"PRINCESS", price:"€3,000", picture:'/images/image2.png',
-    pic:<Image priority='high' fetchPriority='high' className='rounded-md shadow-md pl-6 py-6 pr-4
+    pic:<Image priority='high' fetchPriority='high' className='mx-auto rounded-md shadow-md py-1 px-1 hover:scale-125 transition-all duration-700 ease-in-out
     bg-white' src={'/images/image2.png'} alt='perfume1'
     width={244} height={244} />},
     {id:2, name:"RAYHAAN", price:"€2,500", picture:'/images/image3.png',
-    pic:<Image priority='high' fetchPriority='high' className='rounded-md shadow-md pl-6 py-6 pr-4
+    pic:<Image priority='high' fetchPriority='high' className='mx-auto rounded-md shadow-md py-1 px-1 hover:scale-125 transition-all duration-700 ease-in-out
     bg-white' src={'/images/image3.png'} alt='perfume1'
     width={244} height={244} />},
     {id:3, name:"DAYLAAN", price:"€2,200", picture:'/images/image4.png',
-    pic:<Image priority='high' fetchPriority='high' className='rounded-md shadow-md pl-6 py-6 pr-4
+    pic:<Image priority='high' fetchPriority='high' className='mx-auto rounded-md shadow-md py-1 px-1 hover:scale-125 transition-all duration-700 ease-in-out
     bg-white' src={'/images/image4.png'} alt='perfume1'
     width={244} height={244} />},
     {id:4, name:"SAHEEB", price:"€2,500", picture:'/images/image5.png',
-    pic:<Image priority='high' fetchPriority='high' className='rounded-md shadow-md pl-6 py-6 pr-4
+    pic:<Image priority='high' fetchPriority='high' className='mx-auto rounded-md shadow-md py-1 px-1 hover:scale-125 transition-all duration-700 ease-in-out
     bg-white' src={'/images/image5.png'} alt='perfume1'
     width={244} height={244} />}
 ]
@@ -104,7 +105,7 @@ function OurProducts() {
   
     useEffect(() => {
       handleProductRef(productNo);
-    }, []);
+    }, [productsRef.current, productNo]);
   
     const memoizedCartItems = useMemo(() => cartItems, [cartItems]);
 
@@ -206,7 +207,7 @@ function OurProducts() {
                   transition={{ stagger: 0.5, duration: 1 }}
                   variants={childVariant}
                   className={`${items.id === productNo && 'animate-bounce'} relative w-auto rounded-md border-white shadow-md flex flex-col `}>
-                  <Link onClick={() => { items.id === productNo && setProductNo(null) }} href={`/product/list/${items.id}`}>{items.pic}</Link>
+                  <Link className='overflow-hidden' onClick={() => { items.id === productNo && setProductNo(null) }} href={`/product/list/${items.id}`}>{items.pic}</Link>
                   <div className={`${poppins.className} flex items-center justify-center px-4 uppercase 
                       bg-gradient-to-l text-white rounded-md
                       from-slate-900 via-zinc-700 to-slate-900`}>
@@ -225,7 +226,7 @@ function OurProducts() {
                     onClick={()=>{()=>{setCartId(items.id)}; handleCartAnimation(items); handleCartAdd(items); }}
                       className={`${poppins.className} relative border-white border-1 w-max text-center px-4 py-3 
                       -ml-4 rounded bg-gradient-to-r mx-auto bg-transparent text-white`}>
-                      {isListSegment ? 'Buy Now' : 'Add To Cart'}
+                      {isListSegment ? <FaCartPlus fill={'white'} size={20}/> : 'Add To Cart'}
                         {/* {quantity} */}
                       { 
                         <motion.div

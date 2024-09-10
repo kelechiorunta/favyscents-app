@@ -57,7 +57,7 @@ useGSAP(() => {
         border overflow-hidden border-[#589c4b]
         rounded-md bg-[#569c4b] xsm:max-md:p-2 xsm:max-md:max-w-full xsm:max-md:ml-0`}>
         <div className='flex flex-col items-start gap-x-1 w-full px-16 z-10 xsm:max-md:p-2'>
-            <h1 className='text-4xl w-full xsm:max-md:p-2 xsm:max-md:text-[2rem]'>{pathname=='/about'? 'ABOUT' : 'WELCOME TO'}</h1>
+            <h1 className='text-4xl w-full xsm:max-md:p-2 xsm:max-md:text-[2rem]'>{pathname=='/about'? 'ABOUT' : 'Scented Products at'}</h1>
             <h1 className='text-[100px] xsm:max-md:p-2 xsm:max-md:text-[3rem]'>FAVYSCENTS</h1>
             <p className='text-3xl w-full italic xsm:max-md:p-2 xsm:max-md:text-[2rem]'>{pathname=='/about'?'':'Experience the Art of Fragrance'}</p>
         </div>
