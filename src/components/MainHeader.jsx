@@ -33,7 +33,7 @@ export default function MainHeader() {
 
   return (
     <header className='max-w-full flex justify-between items-center text-white text-xl container
-    bg-[#1e4548] py-3 px-4 z-20 sticky top-0'>
+    bg-[#1e4548] py-3 px-8 z-20 sticky top-0'>
         <Image
         className='container max-w-[60px] w-[30%] h-[30%]'
         width={44}
