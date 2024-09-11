@@ -17,8 +17,8 @@ export default function SelectedProduct({product}) {
         
                 <div className='gap-4 p-8 flex flex-wrap justify-evenly items-start border-2 border-black w-[100%]
                 '>
-                    <div className='container mx-auto min-w-[45%] max-w-[45%] border-black shadow-2xl rounded
-                    xsm:max-md:max-w-full'>
+                    <div className={`container bg-[${product && product.blurImg}] bg-center bg-cover mx-auto min-w-[45%] max-w-[45%] border-black shadow-2xl rounded
+                    xsm:max-md:max-w-full`}>
                         {product && product.pic}
                     </div>
                     <div className='p-4 flex flex-col gap-4 container mx-auto min-w-[45%]

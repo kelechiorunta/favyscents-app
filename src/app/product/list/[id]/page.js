@@ -16,23 +16,23 @@ export default function page({params}) {
     const products = [
       {id:0, name:"CHOCO M", price:"€2,000", rating:3, 
       pic:<Image className='rounded-md shadow-md pl-6 py-6 pr-4
-      bg-white' src={'/images/image1.png'} alt='perfume1'
+      bg-white' src={'/images/image1.png'} blurImg={'/images/small-image1.png'} alt='perfume1'
       width={544} height={544} />},
       {id:1, name:"CASTLE PRINCESS", price:"€3,000", rating:5,
       pic:<Image className='rounded-md shadow-md pl-6 py-6 pr-4
-      bg-white' src={'/images/image2.png'} alt='perfume1'
+      bg-white' src={'/images/image2.png'}blurImg={'/images/small-image2.png'}  alt='perfume1'
       width={544} height={544} />},
       {id:2, name:"RAYHAAN", price:"€2,500", rating:3,
       pic:<Image className='rounded-md shadow-md pl-6 py-6 pr-4
-      bg-white' src={'/images/image3.png'} alt='perfume1'
+      bg-white' src={'/images/image3.png'} blurImg={'/images/small-image3.png'} alt='perfume1'
       width={544} height={544} />},
       {id:3, name:"DAYLAAN", price:"€3,200", rating:4,
       pic:<Image className='rounded-md shadow-md pl-6 py-6 pr-4
-      bg-white' src={'/images/image4.png'} alt='perfume1'
+      bg-white' src={'/images/image4.png'} blurImg={'/images/small-image4.png'} alt='perfume1'
       width={544} height={544} />},
       {id:4, name:"SAHEEB", price:"€3,500", rating:5,
       pic:<Image className='rounded-md shadow-md pl-6 py-6 pr-4
-      bg-white' src={'/images/image5.png'} alt='perfume1'
+      bg-white' src={'/images/image5.png'} blurImg={'/images/small-image5.png'} alt='perfume1'
       width={544} height={544} />}
   ]
     const [searchedProduct, setSearhedProduct] = useState(null)
