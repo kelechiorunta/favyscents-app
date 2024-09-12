@@ -131,16 +131,6 @@ function OurProducts() {
       }
     }, []);
 
-    const getSelectedCart = (arr, items, id) => {
-        const foundSelectedCart = arr && arr.find(item=>{return item.id === items.id})
-        return foundSelectedCart?.quantity
-    }
-
-    const getNonSelectedCart = (arr, items, id) => {
-        const foundSelectedCart = arr && arr.map(item=>{return item.id == id})
-        return foundSelectedCart[0]?.quantity
-    }
-  
     const slidetexts = `Your Choicest Brands`;
   
     return (
@@ -155,12 +145,12 @@ function OurProducts() {
         </svg>
       <div 
       style={{ clipPath: 'url(#curveClipPath)' }}
-      className={`container pb-24 ${isListSegment ? 'max-w-[95%] min-w-[95%]' : 'max-w-[90%] min-w-[90%]'} flex flex-col mx-auto items-center justify-center
+      className={`container pb-24 rounded-bl-full ${isListSegment ? 'max-w-[95%] min-w-[95%]' : 'max-w-[90%] min-w-[90%]'} flex flex-col mx-auto items-center justify-center
        xsm:max-[400px]:max-w-[400px] xsm:max-[400px]:p-2 ${isListSegment && 'xsm:max-[400px]' ? 'mt-8' : 'mt-4'}`}>
         
         
         <motion.div
-          className='max-w-full mx-auto container flex flex-col items-center gap-8 px-8 mt-[200px] py-16
+          className='rounded-tl-[30%] rounded-tr-[30%] max-w-full mx-auto container flex flex-col items-center gap-8 px-8 mt-[200px] py-16
           bg-gradient-conic from-slate-600 via-slate-300 to-slate-600 xsm:max-[400px]:p-2 xsm:max-[400px]:max-w-[400px]'>
           <h1 className={`text-[40px] ${poppins.className} mt-4 text-center xsm:max-[400px]:text-3xl`}>{!isListSegment ? 'OUR PRODUCTS' : 'COLLECTIONS'}</h1>
           {isListSegment && (

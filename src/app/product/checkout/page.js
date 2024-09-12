@@ -7,6 +7,7 @@ import CartPage from '@/components/CartPage'
 import AboutLandingPage from '@/components/AboutLandingPage'
 import { FaBackward } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
+import Login from '@/components/Login'
 
 const poppins = Poppins({ subsets: ['latin'], style: 'normal', weight: '400' })
 
@@ -34,8 +35,9 @@ export default function page() {
                 CHECKOUT PAGE IN PROGRESS
             </h1>
             {/* <AboutLandingPage/> */}
-            <div className='container scale-40 xsm:max-md:scale-50
-            xsm:max-md:mx-auto'><Carousel/></div>
+            {/* <div className='container scale-40 xsm:max-md:scale-50
+            xsm:max-md:mx-auto'><Carousel/></div> */}
+            <Login/>
         </div>
     </motion.div>
   )
